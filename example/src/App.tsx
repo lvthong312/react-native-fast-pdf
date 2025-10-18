@@ -1,12 +1,16 @@
-import { Text, View, StyleSheet } from 'react-native';
-import { multiply } from 'react-native-fast-pdf';
-
-const result = multiply(3, 7);
+import { Button, StyleSheet, View } from 'react-native';
+import { openPdf } from 'react-native-fast-pdf';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Button
+        title="Open PDF"
+        onPress={async () => {
+          const result = await openPdf('https://....pdf');
+          console.log('result', result);
+        }}
+      />
     </View>
   );
 }
