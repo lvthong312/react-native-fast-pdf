@@ -85,5 +85,5 @@ const styles = StyleSheet.create({
 ```
 | Tính năng                | Android | iOS |
 | ------------------------ | :-----: | :-: |
-| Mở PDF local (`file://`) |    ✅    |  🔜 |
-| Mở PDF online (URL)      |    ✅    |  🔜 |
+| Mở PDF local (`file://`) |    ✅    | ✅  |
+| Mở PDF online (URL)      |    ✅    | ✅  |
