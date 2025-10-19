@@ -38,4 +38,20 @@
                    }];
 }
 
+
+- (void)downloadPdf:(nonnull NSString *)uri
+         resolve:(nonnull RCTPromiseResolveBlock)resolve
+          reject:(nonnull RCTPromiseRejectBlock)reject
+{
+  [moduleImpl downloadPdfWithUri:uri
+                   resolver:^(NSString * _Nonnull result) {
+                     resolve(result);
+                   }
+                   rejecter:^(NSString * _Nonnull error) {
+                     reject(@"E_OPEN_PDF", error, nil);
+                   }];
+}
+
+
+
 @end

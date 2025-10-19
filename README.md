@@ -60,12 +60,30 @@ At android/app/src/main/res/xml/provider_paths.xml Add
 </paths>
 ```
 
+## For use DownloadPdf (optional)
+At AndroidManifest.xml add 
+
+```xml
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+```
+
+At info.plist add 
+
+```sh
+<key>UIFileSharingEnabled</key>
+<true/>
+<key>LSSupportsOpeningDocumentsInPlace</key>
+<true/>
+```
+
 ## Usage
 
 
 ```js
 import { Button, StyleSheet, View } from 'react-native';
-import { openPdf } from 'react-native-fast-pdf';
+import { downloadPdf, openPdf } from 'react-native-fast-pdf';
 
 export default function App() {
   return (
@@ -73,12 +91,28 @@ export default function App() {
       <Button
         title="Open PDF"
         onPress={async () => {
-          const result = await openPdf('https:// or file://');
-          console.log('result', result)
+          try {
+            const fileUri = await openPdf('https://....pdf');
+            console.log('Opened File: ', fileUri);
+          } catch (error) {
+            console.log('Open failed: ', error);
+          }
+        }}
+      />
+      <Button
+        title="Download PDF"
+        onPress={async () => {
+          try {
+            const downloadUri = await downloadPdf('https://....pdf');
+            console.log('Saved file: ', downloadUri);
+            await openPdf(`file://${downloadUri}`);
+          } catch (error) {
+            console.log('Download Or Open Failed', error);
+          }
         }}
       />
     </View>
-  );read
+  );
 }
 
 const styles = StyleSheet.create({
@@ -88,6 +122,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
 
 ```
 | Tính năng                | Android | iOS |
